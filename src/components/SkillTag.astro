@@ -9,6 +9,7 @@ interface Props {
 const { label, color } = Astro.props;
 ---
 
+<!-- biome-ignore lint/a11y/noNoninteractiveTabindex: focusable so keyboard users get the hover state -->
 <span class={`tag tag-${color}`} data-label={label} tabindex="0">{label}</span>
 
 <style>

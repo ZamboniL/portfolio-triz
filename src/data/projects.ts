@@ -1,4 +1,4 @@
-import type { Accent } from "../styles/tokens";
+import type { Accent } from '../styles/tokens';
 
 /** How the image is cropped inside the square thumbnail (percentages from the Figma design). */
 export interface Crop {

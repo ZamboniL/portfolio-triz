@@ -75,7 +75,7 @@
 	--elevation-offset: 12px 12px 0 var(--color-accent-blue); /* flat decorative offset */
 
 	/* ── Typography: primitives ─────────────────────────── */
-	--font-serif: 'Averia Serif Libre', Georgia, serif;
+	--font-serif: "Averia Serif Libre", Georgia, serif;
 
 	--font-size-xs: 12px;
 	--font-size-sm: 14px;

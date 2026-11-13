@@ -1,9 +1,9 @@
 ---
 import type { GetStaticPaths } from 'astro';
-import Layout from '../../layouts/Layout.astro';
 import Footer from '../../components/Footer.astro';
 import PageTitle from '../../components/PageTitle.astro';
-import { projects, getProjectPage, type Project } from '../../data/projects';
+import { getProjectPage, type Project, projects } from '../../data/projects';
+import Layout from '../../layouts/Layout.astro';
 
 export const getStaticPaths = (() =>
 	projects.map((project) => ({ params: { slug: project.slug }, props: { project } }))) satisfies GetStaticPaths;

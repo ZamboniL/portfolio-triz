@@ -1,5 +1,5 @@
 ---
-import { accentColor, type Accent } from '../styles/tokens';
+import { type Accent, accentColor } from '../styles/tokens';
 
 interface Props {
 	color?: Accent;
@@ -8,6 +8,7 @@ interface Props {
 const { color = 'blue' } = Astro.props;
 ---
 
+<!-- biome-ignore lint/a11y/useHeadingContent: the text comes in through the slot -->
 <h1 class="page-title" style={{ '--title-color': accentColor(color) }}>
 	<slot />
 </h1>
