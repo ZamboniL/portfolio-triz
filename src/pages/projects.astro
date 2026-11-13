@@ -2,17 +2,17 @@
 import Footer from '../components/Footer.astro';
 import PageTitle from '../components/PageTitle.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import { projects } from '../data/projects';
+import { getProjects } from '../data/projects';
+import { site } from '../data/site';
 import Layout from '../layouts/Layout.astro';
+
+const projects = await getProjects();
 ---
 
 <Layout title="Projects · Beatriz Mendonça" active="projects">
 	<PageTitle>Projects</PageTitle>
 
-	<p class="description">
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultrices tempus maximus. Sed non urna imperdiet,
-		tempus mauris sed, semper augue. Vestibulum quis libero eros.
-	</p>
+	<p class="description">{site.projectsIntro}</p>
 
 	<div class="grid">
 		{projects.map((project) => <ProjectCard project={project} />)}

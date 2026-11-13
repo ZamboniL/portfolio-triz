@@ -1,0 +1,178 @@
+# Pages CMS configuration: https://pagescms.org/docs/configuration/
+# Edit the site at https://app.pagescms.org (sign in with GitHub).
+
+media:
+  input: public/images
+  output: /images
+  rename: safe
+  categories: [image]
+
+content:
+  - name: projects
+    label: Projects
+    type: collection
+    path: src/content/projects
+    format: yaml-frontmatter
+    filename:
+      # The file name becomes the page address, e.g. /projects/plotline
+      template: "{title}.md"
+      field: false
+    view:
+      fields: [title, year, order]
+      primary: title
+      sort: [order, title, year]
+      default:
+        sort: order
+        order: asc
+    fields:
+      - name: title
+        label: Project name
+        type: string
+        required: true
+      - name: year
+        label: Year
+        type: number
+        required: true
+        options:
+          min: 2000
+          max: 2100
+      - name: order
+        label: Position in the grid
+        description: Lower numbers come first. The home page shows the first 6 projects.
+        type: number
+        required: true
+        options:
+          min: 1
+      - name: thumbnail
+        label: Cover image
+        description: Shown as a square on the home and projects pages. Square images look best.
+        type: image
+      - name: thumbnailFocus
+        label: Keep this part of the cover visible
+        description: Only matters if the cover image isn't square.
+        type: select
+        options:
+          values:
+            - name: center
+              label: Middle
+            - name: top
+              label: Top
+            - name: bottom
+              label: Bottom
+            - name: left
+              label: Left
+            - name: right
+              label: Right
+      - name: accent
+        label: Title colour
+        type: select
+        options:
+          values:
+            - name: purple
+              label: Purple
+            - name: blue
+              label: Blue
+            - name: red
+              label: Red
+            - name: lime
+              label: Lime
+      - name: intro
+        label: Intro
+        description: The short paragraph under the title.
+        type: text
+        required: true
+      - name: screens
+        label: Phone screenshots
+        description: Up to 3 images, shown left to right on the white panel. Leave empty to hide the panel.
+        type: image
+        options:
+          multiple:
+            max: 3
+      - name: body
+        label: Main text
+        type: rich-text
+        options:
+          format: markdown
+          media: false
+          switcher: false
+
+  - name: site
+    label: Home & contact
+    type: file
+    path: src/content/site.json
+    format: json
+    fields:
+      - name: tagline
+        label: Home page tagline
+        type: string
+        required: true
+      - name: projectsIntro
+        label: Projects page intro
+        type: text
+        required: true
+      - name: email
+        label: E-mail address
+        description: Copied when visitors click "e-mail" in the footer.
+        type: string
+        required: true
+      - name: substackUrl
+        label: Substack link
+        type: string
+        required: true
+
+  - name: about
+    label: About page
+    type: file
+    path: src/content/about.json
+    format: json
+    fields:
+      - name: bio
+        label: Bio paragraphs
+        type: text
+        list: true
+        required: true
+      - name: education
+        label: Education
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: Course
+            type: string
+            required: true
+          - name: years
+            label: Years
+            description: e.g. 2019-2021
+            type: string
+            required: true
+      - name: skillRows
+        label: Skills
+        description: Each row is one line of skill tags on the page.
+        type: object
+        list:
+          collapsible:
+            summary: "Row {index}"
+        fields:
+          - name: skills
+            label: Skills in this row
+            type: object
+            list: true
+            fields:
+              - name: label
+                label: Skill
+                type: string
+                required: true
+              - name: color
+                label: Hover colour
+                type: select
+                required: true
+                options:
+                  values:
+                    - name: blue
+                      label: Blue
+                    - name: red
+                      label: Red
+                    - name: lime
+                      label: Lime
+                    - name: purple
+                      label: Purple

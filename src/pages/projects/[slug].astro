@@ -1,37 +1,41 @@
 ---
+import { render } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
 import Footer from '../../components/Footer.astro';
 import PageTitle from '../../components/PageTitle.astro';
-import { getProjectPage, type Project, projects } from '../../data/projects';
+import { getProjects, type Project } from '../../data/projects';
 import Layout from '../../layouts/Layout.astro';
 
-export const getStaticPaths = (() =>
-	projects.map((project) => ({ params: { slug: project.slug }, props: { project } }))) satisfies GetStaticPaths;
+export const getStaticPaths = (async () =>
+	(await getProjects()).map((project) => ({ params: { slug: project.id }, props: { project } }))) satisfies GetStaticPaths;
 
 interface Props {
 	project: Project;
 }
 
 const { project } = Astro.props;
-const page = getProjectPage(project);
+const { title, accent, intro, screens } = project.data;
+const { Content } = await render(project);
 ---
 
-<Layout title={`${project.title} · Beatriz Mendonça`} active="projects">
-	<PageTitle color={page.accent ?? 'purple'}>{project.title}</PageTitle>
+<Layout title={`${title} · Beatriz Mendonça`} active="projects">
+	<PageTitle color={accent}>{title}</PageTitle>
 
-	<p class="text intro">{page.intro}</p>
+	<p class="text intro">{intro}</p>
 
 	{
-		page.screens && (
+		screens && screens.length > 0 && (
 			<div class="showcase">
-				{page.screens.map((src, i) => (
+				{screens.map((src, i) => (
 					<img class={`phone phone-${i + 1}`} src={src} alt="" width="1920" height="1784" />
 				))}
 			</div>
 		)
 	}
 
-	<p class="text body">{page.body}</p>
+	<div class="text body">
+		<Content />
+	</div>
 
 	<!-- Photo slots: placeholders until the real images are added. -->
 	<div class="gallery" aria-hidden="true">
@@ -92,6 +96,15 @@ const page = getProjectPage(project);
 
 	.body {
 		margin-top: var(--space-16);
+	}
+
+	/* The body is Markdown from the CMS, so it can hold several paragraphs, links and lists. */
+	.body :global(p + p) {
+		margin-top: var(--space-6);
+	}
+
+	.body :global(a) {
+		text-decoration: underline;
 	}
 
 	.gallery {

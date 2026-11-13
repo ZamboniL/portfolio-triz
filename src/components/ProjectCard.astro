@@ -6,26 +6,15 @@ interface Props {
 }
 
 const { project } = Astro.props;
-const { image } = project;
-
-const cropVars = image && {
-	'--crop-w': image.desktop.width,
-	'--crop-h': image.desktop.height,
-	'--crop-l': image.desktop.left,
-	'--crop-t': image.desktop.top,
-	'--crop-mw': image.mobile.width,
-	'--crop-mh': image.mobile.height,
-	'--crop-ml': image.mobile.left,
-	'--crop-mt': image.mobile.top,
-};
+const { title, year, thumbnail, thumbnailFocus } = project.data;
 ---
 
-<a class="card" href={`/projects/${project.slug}`}>
+<a class="card" href={`/projects/${project.id}`}>
 	<span class="card-body">
 		<span class="thumb">
-			{image && <img src={image.src} alt="" style={cropVars} />}
+			{thumbnail && <img src={thumbnail} alt="" style={{ 'object-position': thumbnailFocus }} />}
 		</span>
-		<span class="caption">{project.title}, {project.year}</span>
+		<span class="caption">{title}, {year}</span>
 	</span>
 </a>
 
@@ -63,12 +52,10 @@ const cropVars = image && {
 	}
 
 	.thumb img {
-		position: absolute;
-		max-width: none;
-		width: var(--crop-w);
-		height: var(--crop-h);
-		left: var(--crop-l);
-		top: var(--crop-t);
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 		pointer-events: none;
 	}
 
@@ -93,13 +80,6 @@ const cropVars = image && {
 			width: 100%;
 			height: auto;
 			aspect-ratio: 1;
-		}
-
-		.thumb img {
-			width: var(--crop-mw);
-			height: var(--crop-mh);
-			left: var(--crop-ml);
-			top: var(--crop-mt);
 		}
 
 		.caption {

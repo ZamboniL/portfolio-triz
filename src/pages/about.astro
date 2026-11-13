@@ -1,32 +1,11 @@
 ---
-import type { ComponentProps } from 'astro/types';
 import Footer from '../components/Footer.astro';
 import PageTitle from '../components/PageTitle.astro';
 import SkillTag from '../components/SkillTag.astro';
+import { about } from '../data/site';
 import Layout from '../layouts/Layout.astro';
 
-const education = [
-	{ title: 'Multimedia Production', years: '2019-2021' },
-	{ title: 'PGDip in Marketing Management', years: '2022-2023' },
-	{ title: 'UX Design', years: '2025' },
-];
-
-// Rows match the design's line breaks.
-const skillRows: { label: string; color: ComponentProps<typeof SkillTag>['color'] }[][] = [
-	[
-		{ label: 'UX/UI', color: 'blue' },
-		{ label: 'Storytelling', color: 'lime' },
-	],
-	[
-		{ label: 'Creative writing', color: 'red' },
-		{ label: 'Figma', color: 'blue' },
-	],
-	[
-		{ label: 'Social media', color: 'lime' },
-		{ label: 'Photoshop', color: 'red' },
-	],
-	[{ label: 'Content creation', color: 'purple' }],
-];
+const { bio, education, skillRows } = about;
 ---
 
 <Layout title="About · Beatriz Mendonça" active="about">
@@ -37,12 +16,7 @@ const skillRows: { label: string; color: ComponentProps<typeof SkillTag>['color'
 		<div class="picture" aria-hidden="true"></div>
 
 		<div class="bio">
-			<p>I'm Beatriz, a multimedia producer. My career started in marketing but all roads led me to design.</p>
-			<p>
-				I'm always looking for inspiration in everything around me. My work is based in creating things that are not
-				only visually engaging but also purposeful.
-			</p>
-			<p>I love reading, cooking, exercising, coffee and playing with my cats.</p>
+			{bio.map((paragraph) => <p>{paragraph}</p>)}
 		</div>
 	</section>
 
@@ -65,9 +39,9 @@ const skillRows: { label: string; color: ComponentProps<typeof SkillTag>['color'
 			<h2 class="heading">Skills</h2>
 			<div class="skill-rows">
 				{
-					skillRows.map((row) => (
+					skillRows.map(({ skills }) => (
 						<ul class="skill-row">
-							{row.map((skill) => (
+							{skills.map((skill) => (
 								<li>
 									<SkillTag label={skill.label} color={skill.color} />
 								</li>

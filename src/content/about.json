@@ -1,0 +1,24 @@
+{
+	"bio": [
+		"I'm Beatriz, a multimedia producer. My career started in marketing but all roads led me to design.",
+		"I'm always looking for inspiration in everything around me. My work is based in creating things that are not only visually engaging but also purposeful.",
+		"I love reading, cooking, exercising, coffee and playing with my cats."
+	],
+	"education": [
+		{ "title": "Multimedia Production", "years": "2019-2021" },
+		{ "title": "PGDip in Marketing Management", "years": "2022-2023" },
+		{ "title": "UX Design", "years": "2025" }
+	],
+	"skillRows": [
+		{
+			"skills": [{ "label": "UX/UI", "color": "blue" }, { "label": "Storytelling", "color": "lime" }]
+		},
+		{
+			"skills": [{ "label": "Creative writing", "color": "red" }, { "label": "Figma", "color": "blue" }]
+		},
+		{
+			"skills": [{ "label": "Social media", "color": "lime" }, { "label": "Photoshop", "color": "red" }]
+		},
+		{ "skills": [{ "label": "Content creation", "color": "purple" }] }
+	]
+}

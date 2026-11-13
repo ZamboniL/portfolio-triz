@@ -1,14 +1,15 @@
 ---
 import Footer from '../components/Footer.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import { projects } from '../data/projects';
+import { getProjects } from '../data/projects';
+import { site } from '../data/site';
 import Layout from '../layouts/Layout.astro';
 
-const featured = projects.slice(0, 6);
+const featured = (await getProjects()).slice(0, 6);
 ---
 
 <Layout active="home">
-	<p class="tagline">Creating, reading, writing and talking about all of it.</p>
+	<p class="tagline">{site.tagline}</p>
 
 	<div class="grid">
 		{featured.map((project) => <ProjectCard project={project} />)}
