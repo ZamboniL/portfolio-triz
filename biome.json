@@ -6,7 +6,7 @@
 		"useIgnoreFile": true
 	},
 	"files": {
-		"includes": ["**", "!!**/dist", "!!**/.astro", "!pnpm-workspace.yaml"]
+		"includes": ["**", "!!**/dist", "!!**/.astro", "!pnpm-workspace.yaml", "!src/content"]
 	},
 	"formatter": {
 		"enabled": true,

@@ -9,7 +9,7 @@ media:
 
 content:
   - name: projects
-    label: Projects
+    label: Projetos
     type: collection
     path: src/content/projects
     format: yaml-frontmatter
@@ -26,70 +26,70 @@ content:
         order: asc
     fields:
       - name: title
-        label: Project name
+        label: Nome do projeto
         type: string
         required: true
       - name: year
-        label: Year
+        label: Ano
         type: number
         required: true
         options:
           min: 2000
           max: 2100
       - name: order
-        label: Position in the grid
-        description: Lower numbers come first. The home page shows the first 6 projects.
+        label: Posição na grade
+        description: Números menores aparecem primeiro. A página inicial mostra os 6 primeiros projetos.
         type: number
         required: true
         options:
           min: 1
       - name: thumbnail
-        label: Cover image
-        description: Shown as a square on the home and projects pages. Square images look best.
+        label: Imagem de capa
+        description: Aparece como um quadrado na página inicial e na de projetos. Imagens quadradas ficam melhores.
         type: image
       - name: thumbnailFocus
-        label: Keep this part of the cover visible
-        description: Only matters if the cover image isn't square.
+        label: Parte da capa que deve ficar visível
+        description: Só faz diferença se a imagem de capa não for quadrada.
         type: select
         options:
           values:
             - name: center
-              label: Middle
+              label: Centro
             - name: top
-              label: Top
+              label: Topo
             - name: bottom
-              label: Bottom
+              label: Base
             - name: left
-              label: Left
+              label: Esquerda
             - name: right
-              label: Right
+              label: Direita
       - name: accent
-        label: Title colour
+        label: Cor do título
         type: select
         options:
           values:
             - name: purple
-              label: Purple
+              label: Roxo
             - name: blue
-              label: Blue
+              label: Azul
             - name: red
-              label: Red
+              label: Vermelho
             - name: lime
-              label: Lime
+              label: Verde-limão
       - name: intro
-        label: Intro
-        description: The short paragraph under the title.
+        label: Introdução
+        description: O parágrafo curto logo abaixo do título.
         type: text
         required: true
       - name: screens
-        label: Phone screenshots
-        description: Up to 3 images, shown left to right on the white panel. Leave empty to hide the panel.
+        label: Telas de celular
+        description: Até 3 imagens, mostradas da esquerda para a direita no painel branco. Deixe vazio para esconder o painel.
         type: image
         options:
           multiple:
             max: 3
       - name: body
-        label: Main text
+        label: Texto principal
         type: rich-text
         options:
           format: markdown
@@ -97,82 +97,82 @@ content:
           switcher: false
 
   - name: site
-    label: Home & contact
+    label: Início e contato
     type: file
     path: src/content/site.json
     format: json
     fields:
       - name: tagline
-        label: Home page tagline
+        label: Frase da página inicial
         type: string
         required: true
       - name: projectsIntro
-        label: Projects page intro
+        label: Introdução da página de projetos
         type: text
         required: true
       - name: email
-        label: E-mail address
-        description: Copied when visitors click "e-mail" in the footer.
+        label: Endereço de e-mail
+        description: É copiado quando alguém clica em "e-mail" no rodapé.
         type: string
         required: true
       - name: substackUrl
-        label: Substack link
+        label: Link do Substack
         type: string
         required: true
 
   - name: about
-    label: About page
+    label: Página Sobre
     type: file
     path: src/content/about.json
     format: json
     fields:
       - name: bio
-        label: Bio paragraphs
+        label: Parágrafos da bio
         type: text
         list: true
         required: true
       - name: education
-        label: Education
+        label: Formação
         type: object
         list: true
         fields:
           - name: title
-            label: Course
+            label: Curso
             type: string
             required: true
           - name: years
-            label: Years
-            description: e.g. 2019-2021
+            label: Anos
+            description: ex. 2019-2021
             type: string
             required: true
       - name: skillRows
-        label: Skills
-        description: Each row is one line of skill tags on the page.
+        label: Habilidades
+        description: Cada linha é uma fileira de etiquetas de habilidades na página.
         type: object
         list:
           collapsible:
-            summary: "Row {index}"
+            summary: "Linha {index}"
         fields:
           - name: skills
-            label: Skills in this row
+            label: Habilidades nesta linha
             type: object
             list: true
             fields:
               - name: label
-                label: Skill
+                label: Habilidade
                 type: string
                 required: true
               - name: color
-                label: Hover colour
+                label: Cor ao passar o mouse
                 type: select
                 required: true
                 options:
                   values:
                     - name: blue
-                      label: Blue
+                      label: Azul
                     - name: red
-                      label: Red
+                      label: Vermelho
                     - name: lime
-                      label: Lime
+                      label: Verde-limão
                     - name: purple
-                      label: Purple
+                      label: Roxo
