@@ -1,0 +1,289 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+
+const education = [
+	{ title: 'Multimedia Production', years: '2019-2021' },
+	{ title: 'PGDip in Marketing Management', years: '2022-2023' },
+	{ title: 'UX Design', years: '2025' },
+];
+
+// Each tag's hover colour and tilt come from its Figma component ("Button frame" = blue,
+// "Frame 15" = red, "Frame 14" = green). Rows match the design's line breaks.
+type TagColor = 'blue' | 'red' | 'lime';
+const skillRows: { label: string; color: TagColor }[][] = [
+	[
+		{ label: 'UX/UI', color: 'blue' },
+		{ label: 'Storytelling', color: 'lime' },
+	],
+	[
+		{ label: 'Creative writing', color: 'red' },
+		{ label: 'Figma', color: 'blue' },
+	],
+	[
+		{ label: 'Social media', color: 'lime' },
+		{ label: 'Photoshop', color: 'red' },
+	],
+	[{ label: 'Content creation', color: 'blue' }],
+];
+---
+
+<Layout title="About · Beatriz Mendonça" active="about">
+	<h1 class="title">About me</h1>
+
+	<section class="intro">
+		<!-- Photo slot: placeholder until the real picture is added. -->
+		<div class="picture" aria-hidden="true"></div>
+
+		<div class="bio">
+			<p>I'm Beatriz, a multimedia producer. My career started in marketing but all roads led me to design.</p>
+			<p>
+				I'm always looking for inspiration in everything around me. My work is based in creating things that are not
+				only visually engaging but also purposeful.
+			</p>
+			<p>I love reading, cooking, exercising, coffee and playing with my cats.</p>
+		</div>
+	</section>
+
+	<div class="details">
+		<section class="education">
+			<h2 class="heading">Education</h2>
+			<ul class="education-list">
+				{
+					education.map((item) => (
+						<li>
+							<p class="education-title">{item.title}</p>
+							<p class="education-years">{item.years}</p>
+						</li>
+					))
+				}
+			</ul>
+		</section>
+
+		<section class="skills">
+			<h2 class="heading">Skills</h2>
+			<div class="skill-rows">
+				{
+					skillRows.map((row) => (
+						<ul class="skill-row">
+							{row.map((skill) => (
+								<li class={`tag tag-${skill.color}`} data-label={skill.label} tabindex="0">
+									{skill.label}
+								</li>
+							))}
+						</ul>
+					))
+				}
+			</div>
+		</section>
+	</div>
+
+	<div class="footer-wrap">
+		<Footer />
+	</div>
+</Layout>
+
+<style>
+	.title {
+		margin: 165px 0 0;
+		color: var(--color-star);
+		font-size: 30px;
+		font-weight: 700;
+		font-style: italic;
+		text-align: center;
+	}
+
+	.intro {
+		display: flex;
+		align-items: flex-start;
+		margin-top: 130px;
+	}
+
+	.picture {
+		flex: none;
+		width: 316px;
+		height: 318px;
+		border-radius: 20px;
+		background: var(--color-grey);
+		box-shadow: 11px 11px 0 var(--color-accent);
+	}
+
+	.bio {
+		width: 481px;
+		margin: 31px 0 0 95px;
+		font-weight: 300;
+	}
+
+	.bio p + p {
+		margin-top: 24px;
+	}
+
+	.details {
+		display: grid;
+		grid-template-columns: 621px 1fr;
+		margin: 116px 0 0 7px;
+	}
+
+	.heading {
+		margin: 0;
+		font-size: 30px;
+		font-weight: 400;
+		font-style: italic;
+	}
+
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.education-list {
+		display: flex;
+		flex-direction: column;
+		gap: 22px;
+		margin-top: 19px;
+	}
+
+	.education-title {
+		font-weight: 700;
+	}
+
+	.education-years {
+		margin-top: 4px;
+		font-weight: 300;
+		font-style: italic;
+	}
+
+	.skill-rows {
+		display: flex;
+		flex-direction: column;
+		gap: 11px;
+		margin-top: 21px;
+	}
+
+	.skill-row {
+		display: flex;
+		gap: 10px;
+	}
+
+	.tag {
+		display: inline-flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 7px 10px;
+		border-radius: 6px;
+		background: var(--color-bg);
+		box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+		white-space: nowrap;
+		cursor: default;
+		transition:
+			transform 0.15s ease,
+			background-color 0.15s ease,
+			color 0.15s ease;
+	}
+
+	/* Reserves the bold width so hovering a tag doesn't nudge its neighbour. */
+	.tag::after {
+		content: attr(data-label);
+		height: 0;
+		overflow: hidden;
+		visibility: hidden;
+		font-weight: 700;
+	}
+
+	.tag:hover,
+	.tag:focus-visible {
+		color: var(--color-bg);
+		font-weight: 700;
+		outline: none;
+	}
+
+	.tag-blue:hover,
+	.tag-blue:focus-visible {
+		background: var(--color-accent);
+		transform: rotate(-3deg);
+	}
+
+	.tag-red:hover,
+	.tag-red:focus-visible {
+		background: var(--color-star);
+		transform: rotate(3deg);
+	}
+
+	.tag-lime:hover,
+	.tag-lime:focus-visible {
+		background: var(--color-lime);
+		transform: rotate(4deg);
+	}
+
+	.footer-wrap {
+		margin: 204px 0 0 45px;
+		padding-bottom: 64px;
+	}
+
+	@media (max-width: 999px) {
+		.title {
+			margin-top: 88px;
+			font-size: 16px;
+		}
+
+		.intro {
+			display: block;
+			margin-top: 47px;
+		}
+
+		/* Not in the mobile design. */
+		.picture {
+			display: none;
+		}
+
+		.bio {
+			width: 340px;
+			max-width: 100%;
+			margin: 0 0 0 5px;
+			font-size: 14px;
+		}
+
+		.bio p + p {
+			margin-top: 17px;
+		}
+
+		.details {
+			display: block;
+			margin: 47px 0 0 5px;
+		}
+
+		.heading {
+			font-size: 16px;
+			text-align: center;
+		}
+
+		.education-list {
+			gap: 30px;
+			margin-top: 21px;
+		}
+
+		.education-title {
+			font-size: 16px;
+		}
+
+		.education-years {
+			margin-top: 9px;
+			font-size: 14px;
+		}
+
+		.skills {
+			margin-top: 56px;
+		}
+
+		.skill-rows {
+			margin-top: 9px;
+			padding-left: 29px;
+		}
+
+		.footer-wrap {
+			margin: 130px 0 0;
+			padding-bottom: 68px;
+		}
+	}
+</style>

@@ -1,0 +1,77 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import Footer from '../components/Footer.astro';
+import { projects } from '../data/projects';
+---
+
+<Layout title="Projects · Beatriz Mendonça" active="projects">
+	<h1 class="title">Projects</h1>
+
+	<p class="description">
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultrices tempus maximus. Sed non urna imperdiet,
+		tempus mauris sed, semper augue. Vestibulum quis libero eros.
+	</p>
+
+	<div class="grid">
+		{projects.map((project) => <ProjectCard project={project} />)}
+	</div>
+
+	<div class="footer-wrap">
+		<Footer />
+	</div>
+</Layout>
+
+<style>
+	.title {
+		margin: 165px 0 0;
+		color: var(--color-accent);
+		font-size: 30px;
+		font-weight: 700;
+		font-style: italic;
+		text-align: center;
+	}
+
+	.description {
+		width: 878px;
+		max-width: 100%;
+		margin: 82px 0 0 21px;
+		font-weight: 300;
+	}
+
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(3, 310px);
+		column-gap: 8px;
+		margin-top: 35px;
+	}
+
+	.footer-wrap {
+		margin: 169px 0 0 45px;
+		padding-bottom: 64px;
+	}
+
+	@media (max-width: 999px) {
+		.title {
+			margin-top: 88px;
+			font-size: 16px;
+		}
+
+		/* Not in the mobile design. */
+		.description {
+			display: none;
+		}
+
+		.grid {
+			grid-template-columns: 100%;
+			justify-items: center;
+			row-gap: 39px;
+			margin-top: 60px;
+		}
+
+		.footer-wrap {
+			margin: 201px 0 0;
+			padding-bottom: 68px;
+		}
+	}
+</style>

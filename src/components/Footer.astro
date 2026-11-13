@@ -1,0 +1,207 @@
+---
+import { site } from '../data/site';
+---
+
+<footer class="contact">
+	<p class="contact-title">Get in touch</p>
+	<img class="contact-mark" src="/images/motosserra.png" alt="" width="66" height="67" />
+	<a class="contact-link substack" href={site.substackUrl} target="_blank" rel="noopener">substack</a>
+	<button type="button" class="contact-link email" data-email={site.email} aria-label={`Copy e-mail address ${site.email}`}>
+		<span class="email-label">e-mail</span>
+		<span class="email-hint" aria-live="polite">copy</span>
+	</button>
+</footer>
+
+<script>
+	// Figma "Variant2" (hover: "copy") and "Variant3" (clicked: "copied!").
+	document.querySelectorAll<HTMLButtonElement>('.contact .email').forEach((button) => {
+		const hint = button.querySelector<HTMLElement>('.email-hint')!;
+		const email = button.dataset.email!;
+
+		let resetTimer: number | undefined;
+		const reset = () => {
+			window.clearTimeout(resetTimer);
+			button.classList.remove('is-copied');
+			hint.textContent = 'copy';
+		};
+
+		button.addEventListener('click', async () => {
+			try {
+				await navigator.clipboard.writeText(email);
+				hint.textContent = 'copied!';
+				button.classList.add('is-copied');
+				// Touch screens never fire mouseleave, so also reset on a timer.
+				window.clearTimeout(resetTimer);
+				resetTimer = window.setTimeout(reset, 2000);
+			} catch {
+				window.location.href = `mailto:${email}`;
+			}
+		});
+
+		button.addEventListener('mouseleave', reset);
+	});
+</script>
+
+<style>
+	.contact {
+		display: flex;
+		align-items: center;
+		height: 67px;
+	}
+
+	/* Never squeeze items: a shrunk e-mail button loses its box but keeps the "copy" hint. */
+	.contact > * {
+		flex-shrink: 0;
+	}
+
+	.contact-title {
+		font-weight: 700;
+		color: var(--color-accent);
+		margin-right: 24px;
+		white-space: nowrap;
+	}
+
+	.contact-mark {
+		width: 66px;
+		height: 67px;
+		object-fit: cover;
+		margin-right: 16px;
+		transition: transform 0.2s ease;
+	}
+
+	.contact-mark:hover {
+		transform: rotate(14.23deg);
+	}
+
+	.contact-link {
+		display: flex;
+		align-items: center;
+		padding: 10px;
+		border: 0;
+		border-radius: 6px;
+		background: var(--color-bg);
+		color: var(--color-text-strong);
+		font: inherit;
+		white-space: nowrap;
+		cursor: pointer;
+	}
+
+	/* Wide enough for the bold hover state, so the e-mail button doesn't shift. */
+	.substack {
+		justify-content: center;
+		width: 103px;
+		margin-right: 31px;
+	}
+
+	.substack:hover,
+	.substack:focus-visible {
+		font-weight: 700;
+	}
+
+	/* The label keeps a fixed box (the resting 94px minus padding), so it never moves:
+	   the button just grows to the right and the "copy" hint fades in. */
+	.email {
+		position: relative;
+		justify-content: flex-start;
+		width: 94px;
+		transition: width 0.15s ease;
+	}
+
+	.email-label {
+		width: 74px;
+		text-align: center;
+	}
+
+	.email-hint {
+		position: absolute;
+		top: 15px;
+		left: 129px;
+		transform: translateX(-50%);
+		font-size: 12px;
+		font-weight: 300;
+		opacity: 0;
+	}
+
+	.email:hover,
+	.email:focus-visible,
+	.email.is-copied {
+		width: 162px;
+		font-weight: 700;
+	}
+
+	.email:hover .email-hint,
+	.email:focus-visible .email-hint,
+	.email.is-copied .email-hint {
+		opacity: 1;
+	}
+
+	@media (max-width: 999px) {
+		/* The row (~367px) is wider than the 350px content column, so span the full screen width
+		   and only wrap on very narrow phones. */
+		.contact {
+			flex-wrap: wrap;
+			justify-content: center;
+			row-gap: 8px;
+			width: 100vw;
+			height: auto;
+			min-height: 67px;
+			margin-left: calc(50% - 50vw);
+			font-size: 16px;
+		}
+
+		.contact-title {
+			margin-right: 10px;
+		}
+
+		.contact-mark {
+			margin-right: 10px;
+		}
+
+		.substack {
+			width: 86px;
+			margin-right: 8px;
+		}
+
+		/* No room to widen on mobile (and no real hover on touch): stay 94px wide and
+		   show "copied!" inside the button after a tap. */
+		.email:hover,
+		.email:focus-visible,
+		.email.is-copied {
+			width: 94px;
+		}
+
+		.email:hover .email-hint,
+		.email:focus-visible .email-hint {
+			opacity: 0;
+		}
+
+		.email.is-copied .email-label {
+			visibility: hidden;
+		}
+
+		/* Keep the (invisible) hint inside the button: at its desktop offset it pokes past
+		   the screen edge and causes horizontal scroll. */
+		.email-hint {
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			font-size: 14px;
+		}
+
+		.email.is-copied .email-hint {
+			opacity: 1;
+		}
+	}
+
+	/* Common 360px Android widths: tighten the gaps so the row still fits on one line. */
+	@media (max-width: 379px) {
+		.contact-title,
+		.contact-mark {
+			margin-right: 4px;
+		}
+
+		.substack {
+			margin-right: 4px;
+		}
+	}
+</style>

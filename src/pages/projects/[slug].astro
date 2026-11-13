@@ -1,0 +1,207 @@
+---
+import type { GetStaticPaths } from 'astro';
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/Footer.astro';
+import { projects, getProjectPage, type Project } from '../../data/projects';
+
+export const getStaticPaths = (() =>
+	projects.map((project) => ({ params: { slug: project.slug }, props: { project } }))) satisfies GetStaticPaths;
+
+interface Props {
+	project: Project;
+}
+
+const { project } = Astro.props;
+const page = getProjectPage(project);
+---
+
+<Layout title={`${project.title} · Beatriz Mendonça`} active="projects">
+	<h1 class="title" style={page.accent ? { color: page.accent } : undefined}>{project.title}</h1>
+
+	<p class="text intro">{page.intro}</p>
+
+	{
+		page.screens && (
+			<div class="showcase">
+				{page.screens.map((src, i) => (
+					<img class={`phone phone-${i + 1}`} src={src} alt="" width="1920" height="1784" />
+				))}
+			</div>
+		)
+	}
+
+	<p class="text body">{page.body}</p>
+
+	<!-- Photo slots: placeholders until the real images are added. -->
+	<div class="gallery" aria-hidden="true">
+		<span class="slot slot-a"></span>
+		<span class="slot slot-b"></span>
+		<span class="slot slot-c"></span>
+	</div>
+
+	<div class="footer-wrap">
+		<Footer />
+	</div>
+</Layout>
+
+<style>
+	.title {
+		margin: 165px 0 0;
+		color: var(--color-purple);
+		font-size: 30px;
+		font-weight: 700;
+		font-style: italic;
+		text-align: center;
+	}
+
+	.text {
+		width: 878px;
+		max-width: 100%;
+		margin-left: 21px;
+		font-weight: 300;
+	}
+
+	.intro {
+		margin-top: 82px;
+	}
+
+	/* White panel with three phone screenshots laid over it. */
+	.showcase {
+		position: relative;
+		width: 878px;
+		height: 401px;
+		margin: 53px 0 0 21px;
+		border-radius: 20px;
+		background: var(--color-white);
+		box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+	}
+
+	.phone {
+		position: absolute;
+		top: 8px;
+		width: 476px;
+		height: 385px;
+		object-fit: contain;
+		pointer-events: none;
+	}
+
+	.phone-1 {
+		left: -26px;
+	}
+
+	.phone-2 {
+		left: 212px;
+	}
+
+	.phone-3 {
+		left: 450px;
+	}
+
+	.body {
+		margin-top: 65px;
+	}
+
+	.gallery {
+		display: grid;
+		grid-template-columns: 226fr 557fr;
+		gap: 13px 17px;
+		width: 882px;
+		max-width: 100%;
+		margin: 35px 0 0 21px;
+		padding: 30px 42px 25px 40px;
+		border-radius: 20px;
+		background: var(--color-white);
+		box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+	}
+
+	.slot {
+		border-radius: 20px;
+		background: var(--color-grey);
+	}
+
+	.slot-a {
+		aspect-ratio: 1;
+	}
+
+	.slot-c {
+		grid-column: 1 / -1;
+		aspect-ratio: 800 / 224;
+	}
+
+	.footer-wrap {
+		margin: 204px 0 0 45px;
+		padding-bottom: 64px;
+	}
+
+	@media (max-width: 999px) {
+		.title {
+			margin-top: 88px;
+			font-size: 16px;
+		}
+
+		.text {
+			width: 340px;
+			margin-left: 5px;
+			font-size: 14px;
+		}
+
+		.intro {
+			margin-top: 55px;
+		}
+
+		.showcase {
+			width: 340px;
+			max-width: 100%;
+			height: 190px;
+			margin: 37px 0 0 5px;
+		}
+
+		.phone {
+			top: -17px;
+			width: 240px;
+			height: 217px;
+		}
+
+		.phone-1 {
+			left: -58px;
+		}
+
+		.phone-2 {
+			left: 50px;
+		}
+
+		.phone-3 {
+			left: 163px;
+		}
+
+		.body {
+			margin-top: 30px;
+		}
+
+		.gallery {
+			grid-template-columns: 103fr 200fr;
+			gap: 5px 6px;
+			width: 347px;
+			margin: 35px 0 0 5px;
+			padding: 13px 20px 11px 18px;
+			border-radius: 9px;
+		}
+
+		.slot {
+			border-radius: 9px;
+		}
+
+		.slot-a {
+			aspect-ratio: 103 / 104;
+		}
+
+		.slot-c {
+			aspect-ratio: 309 / 102;
+		}
+
+		.footer-wrap {
+			margin: 130px 0 0;
+			padding-bottom: 68px;
+		}
+	}
+</style>

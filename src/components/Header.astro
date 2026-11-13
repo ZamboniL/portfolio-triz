@@ -1,0 +1,221 @@
+---
+export type NavId = 'home' | 'projects' | 'about';
+
+interface Props {
+	active?: NavId;
+}
+
+const { active } = Astro.props;
+
+// Desktop: hover/active shows the link's own icon + bold text (Figma "Variant2").
+// Mobile: hover/active colours the text instead, no icon.
+const links = [
+	{ id: 'home', label: 'home', href: '/', icon: { src: '/images/nav-star.svg', width: 17.5926, height: 16 } },
+	{ id: 'projects', label: 'projects', href: '/projects', icon: { src: '/images/nav-star-projects.svg', width: 19, height: 16.5177 } },
+	{ id: 'about', label: 'about', href: '/about', icon: { src: '/images/nav-star-about.svg', width: 100, height: 24 } },
+] as const;
+---
+
+<header class="site-header">
+	<div class="inner">
+		<a href="/" class="brand" aria-label="beatriz mendonça, home">
+			<span class="brand-name">
+				<span>beatriz</span>
+				<span>mendonça</span>
+			</span>
+			<img class="brand-mark" src="/images/motosserra.png" alt="" width="66" height="67" />
+		</a>
+
+		<nav class="nav" aria-label="Main">
+			{
+				links.map((link) => (
+					<a
+						href={link.href}
+						class:list={['nav-link', `nav-link-${link.id}`, { 'is-active': link.id === active }]}
+						aria-current={link.id === active ? 'page' : undefined}
+					>
+						<img
+							class={`nav-icon nav-icon-${link.id}`}
+							src={link.icon.src}
+							alt=""
+							width={link.icon.width}
+							height={link.icon.height}
+						/>
+						<span class="nav-label">{link.label}</span>
+					</a>
+				))
+			}
+		</nav>
+	</div>
+</header>
+
+<style>
+	.site-header {
+		background: var(--color-white);
+		height: 148px;
+	}
+
+	.inner {
+		display: flex;
+		align-items: flex-start;
+		width: var(--container-width);
+		max-width: 100%;
+		margin: 0 auto;
+		padding-top: 35px;
+	}
+
+	.brand {
+		position: relative;
+		flex: none;
+		width: 162px;
+		height: 83px;
+		margin-left: 9px;
+	}
+
+	.brand-name {
+		position: absolute;
+		top: 11px;
+		left: 0;
+		display: flex;
+		flex-direction: column;
+		font-size: 30px;
+		white-space: nowrap;
+	}
+
+	.brand-mark {
+		position: absolute;
+		top: 0;
+		left: 96px;
+		width: 66px;
+		height: 67px;
+		object-fit: cover;
+	}
+
+	.nav {
+		display: flex;
+		margin: 35px 0 0 289px;
+	}
+
+	.nav-link {
+		position: relative;
+		display: block;
+		height: 24px;
+		white-space: nowrap;
+	}
+
+	/* Fixed widths so bold-on-hover doesn't nudge the neighbouring links. */
+	.nav-link-home {
+		width: 182px;
+	}
+
+	.nav-link-projects {
+		width: 192px;
+	}
+
+	.nav-label {
+		position: relative;
+	}
+
+	.nav-icon {
+		position: absolute;
+		max-width: none;
+		opacity: 0;
+		transition: opacity 0.15s ease;
+	}
+
+	.nav-icon-home {
+		top: 4px;
+		left: -24.3px;
+	}
+
+	.nav-icon-projects {
+		top: 4.75px;
+		left: -26.75px;
+		transform: rotate(-19.99deg);
+	}
+
+	/* This asset is a full 100×24 frame (white bg + star), so it sits behind the label. */
+	.nav-icon-about {
+		top: 0;
+		left: -31px;
+	}
+
+	.nav-link:hover,
+	.nav-link:focus-visible,
+	.nav-link.is-active {
+		font-weight: 700;
+	}
+
+	.nav-link:hover .nav-icon,
+	.nav-link:focus-visible .nav-icon,
+	.nav-link.is-active .nav-icon {
+		opacity: 1;
+	}
+
+	@media (max-width: 999px) {
+		.site-header {
+			background: var(--color-bg);
+			height: 66px;
+		}
+
+		.inner {
+			width: auto;
+			padding: 10px 24px 0 23px;
+		}
+
+		.brand {
+			width: 81px;
+			height: 46px;
+			margin-left: 0;
+		}
+
+		.brand-name {
+			font-size: 16px;
+			line-height: 16px;
+		}
+
+		.brand-mark {
+			top: 8px;
+			left: 52px;
+			width: 29px;
+			height: 29px;
+		}
+
+		.nav {
+			gap: 6px;
+			margin: 8px 0 0 auto;
+		}
+
+		.nav-link,
+		.nav-link-home,
+		.nav-link-projects {
+			width: auto;
+			height: auto;
+			padding: 10px;
+			font-size: 14px;
+			color: var(--color-text-strong);
+		}
+
+		.nav-icon {
+			display: none;
+		}
+
+		.nav-link:hover,
+		.nav-link:focus-visible,
+		.nav-link.is-active {
+			font-weight: 400;
+		}
+
+		.nav-link-home:is(:hover, :focus-visible, .is-active) {
+			color: var(--color-star);
+		}
+
+		.nav-link-projects:is(:hover, :focus-visible, .is-active) {
+			color: var(--color-lime);
+		}
+
+		.nav-link-about:is(:hover, :focus-visible, .is-active) {
+			color: var(--color-accent);
+		}
+	}
+</style>
