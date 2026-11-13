@@ -1,0 +1,116 @@
+/*
+ * Design tokens.
+ *
+ * Components only reference the semantic tokens (--color-*, --space-*, --layout-*,
+ * --radius-*, --elevation-*); --palette-* values are the raw primitives behind them.
+ */
+
+:root {
+	/* ── Colour: primitives ─────────────────────────────── */
+	--palette-white: #fdfdfd;
+	--palette-grey-100: #efefef;
+	--palette-grey-300: #d9d9d9;
+	--palette-grey-800: #3b3535;
+	--palette-grey-900: #272227;
+	--palette-blue: #005d94;
+	--palette-red: #ff390f;
+	--palette-lime: #abc930;
+	--palette-purple: #7641a4;
+
+	/* ── Colour: semantic ───────────────────────────────── */
+	--color-bg: var(--palette-grey-100);
+	--color-surface: var(--palette-white); /* header, raised panels */
+	--color-placeholder: var(--palette-grey-300); /* empty image slots */
+	--color-text: var(--palette-grey-800);
+	--color-text-strong: var(--palette-grey-900);
+	--color-text-inverse: var(--palette-grey-100); /* text on accent fills */
+	--color-primary: var(--palette-blue);
+	--color-accent-blue: var(--palette-blue);
+	--color-accent-red: var(--palette-red);
+	--color-accent-lime: var(--palette-lime);
+	--color-accent-purple: var(--palette-purple);
+	--color-shadow: rgb(0 0 0 / 0.25);
+
+	/* ── Spacing: 4px grid ──────────────────────────────────
+	 * --space-N = N × 4px. For one-off layout offsets beyond the scale, use
+	 * calc(var(--space-1) * N) so the value stays on the grid. */
+	--space-0: 0;
+	--space-1: 4px;
+	--space-2: 8px;
+	--space-3: 12px;
+	--space-4: 16px;
+	--space-5: 20px;
+	--space-6: 24px;
+	--space-7: 28px;
+	--space-8: 32px;
+	--space-9: 36px;
+	--space-10: 40px;
+	--space-12: 48px;
+	--space-14: 56px;
+	--space-16: 64px;
+	--space-20: 80px;
+	--space-24: 96px;
+	--space-32: 128px;
+
+	/* ── Layout rhythm (shared across pages; mobile values below) ── */
+	--layout-gutter: var(--space-4); /* min side margin on small screens */
+	--layout-page-top: calc(var(--space-1) * 41); /* header → page title */
+	--layout-title-gap: var(--space-20); /* page title → first content */
+	--layout-inset: var(--space-5); /* left inset of body copy and panels */
+	--layout-footer-gap: calc(var(--space-1) * 51); /* last content → footer */
+	--layout-footer-inset: var(--space-12);
+	--layout-page-bottom: var(--space-16);
+
+	/* ── Border radius ──────────────────────────────────── */
+	--radius-sm: 8px; /* buttons, tags, small media */
+	--radius-md: 12px;
+	--radius-lg: 20px; /* cards, panels, images */
+	--radius-full: 9999px;
+
+	/* ── Elevation ──────────────────────────────────────── */
+	--elevation-0: none;
+	--elevation-1: 0 4px 4px 0 var(--color-shadow); /* cards, panels, tags */
+	--elevation-2: 0 8px 12px 0 var(--color-shadow);
+	--elevation-3: 0 12px 24px 0 var(--color-shadow);
+	--elevation-offset: 12px 12px 0 var(--color-accent-blue); /* flat decorative offset */
+
+	/* ── Typography: primitives ─────────────────────────── */
+	--font-serif: 'Averia Serif Libre', Georgia, serif;
+
+	--font-size-xs: 12px;
+	--font-size-sm: 14px;
+	--font-size-md: 16px;
+	--font-size-lg: 20px;
+	--font-size-xl: 30px;
+
+	--font-weight-light: 300;
+	--font-weight-regular: 400;
+	--font-weight-bold: 700;
+
+	--line-height-tight: 1;
+	--line-height-normal: normal;
+	/* The `normal` line box of --font-size-xl in Averia: lets smaller text sit on the
+	   same line as a page title. */
+	--line-height-title: 37px;
+
+	/* ── Typography: semantic (responsive; mobile values below) ── */
+	--font-size-base: var(--font-size-lg); /* body default */
+	--font-size-title: var(--font-size-xl); /* page titles, section headings, brand */
+	--font-size-copy: var(--font-size-lg); /* long-form reading text */
+
+	/* Three 310px cards + two 8px gaps */
+	--container-width: 946px;
+}
+
+@media (max-width: 999px) {
+	:root {
+		--layout-page-top: calc(var(--space-1) * 22);
+		--layout-title-gap: var(--space-14);
+		--layout-inset: var(--space-1);
+		--layout-footer-gap: var(--space-32);
+		--layout-footer-inset: var(--space-0);
+
+		--font-size-title: var(--font-size-md);
+		--font-size-copy: var(--font-size-sm);
+	}
+}

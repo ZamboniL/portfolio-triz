@@ -29,10 +29,10 @@ const featured = projects.slice(0, 6);
 
 <style>
 	.tagline {
-		margin-top: 165px;
+		margin-top: var(--layout-page-top);
 		/* Same line box as the 30px page titles, so the text sits on the same line as theirs. */
-		line-height: 37px;
-		font-weight: 300;
+		line-height: var(--line-height-title);
+		font-weight: var(--font-weight-light);
 		font-style: italic;
 		text-align: center;
 	}
@@ -40,17 +40,17 @@ const featured = projects.slice(0, 6);
 	.grid {
 		display: grid;
 		grid-template-columns: repeat(3, 310px);
-		column-gap: 8px;
-		margin-top: 82px;
+		column-gap: var(--space-2);
+		margin-top: var(--layout-title-gap);
 	}
 
 	.view-all {
 		display: flex;
 		align-items: center;
-		gap: 10px;
+		gap: var(--space-2);
 		width: fit-content;
-		margin: 243px 47px 0 auto;
-		font-weight: 300;
+		margin: calc(var(--space-1) * 60) var(--space-12) 0 auto;
+		font-weight: var(--font-weight-light);
 	}
 
 	.view-all:hover {
@@ -76,22 +76,20 @@ const featured = projects.slice(0, 6);
 	}
 
 	.footer-wrap {
-		margin: 204px 0 0 49px;
-		padding-bottom: 64px;
+		margin: var(--layout-footer-gap) 0 0 var(--layout-footer-inset);
+		padding-bottom: var(--layout-page-bottom);
 	}
 
 	@media (max-width: 999px) {
 		.tagline {
-			margin-top: 88px;
-			font-size: 16px;
-			line-height: normal;
+			font-size: var(--font-size-md);
+			line-height: var(--line-height-normal);
 		}
 
 		.grid {
 			grid-template-columns: 100%;
 			justify-items: center;
-			row-gap: 39px;
-			margin-top: 60px;
+			row-gap: var(--space-10);
 		}
 
 		/* Mobile home shows only the first three projects. */
@@ -100,12 +98,7 @@ const featured = projects.slice(0, 6);
 		}
 
 		.view-all {
-			margin: 47px 0 0 auto;
-		}
-
-		.footer-wrap {
-			margin: 130px 0 0;
-			padding-bottom: 68px;
+			margin: var(--space-12) 0 0 auto;
 		}
 	}
 </style>

@@ -1,3 +1,5 @@
+import type { Accent } from "../styles/tokens";
+
 /** How the image is cropped inside the square thumbnail (percentages from the Figma design). */
 export interface Crop {
 	width: string;
@@ -8,7 +10,7 @@ export interface Crop {
 
 export interface ProjectPage {
 	/** Title colour on the project page. Defaults to purple. */
-	accent?: string;
+	accent?: Accent;
 	intro: string;
 	body: string;
 	/** Phone screenshots shown over the white panel, left to right. */

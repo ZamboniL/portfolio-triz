@@ -1,5 +1,6 @@
 ---
 import Header, { type NavId } from '../components/Header.astro';
+import '../styles/theme.css';
 
 interface Props {
 	title?: string;
@@ -33,21 +34,6 @@ const { title = 'Beatriz Mendonça', active } = Astro.props;
 </html>
 
 <style is:global>
-	:root {
-		--color-bg: #efefef;
-		--color-white: #fdfdfd;
-		--color-grey: #d9d9d9;
-		--color-text: #3b3535;
-		--color-text-strong: #272227;
-		--color-accent: #005d94;
-		--color-star: #ff390f;
-		--color-lime: #abc930;
-		--color-purple: #7641a4;
-		--font-serif: 'Averia Serif Libre', Georgia, serif;
-		/* Three 310px cards + two 8px gaps */
-		--container-width: 946px;
-	}
-
 	*,
 	*::before,
 	*::after {
@@ -66,8 +52,8 @@ const { title = 'Beatriz Mendonça', active } = Astro.props;
 		background: var(--color-bg);
 		color: var(--color-text);
 		font-family: var(--font-serif);
-		font-size: 20px;
-		line-height: normal;
+		font-size: var(--font-size-base);
+		line-height: var(--line-height-normal);
 	}
 
 	a {
@@ -88,7 +74,7 @@ const { title = 'Beatriz Mendonça', active } = Astro.props;
 	@media (max-width: 999px) {
 		.container {
 			width: 350px;
-			max-width: calc(100% - 32px);
+			max-width: calc(100% - 2 * var(--layout-gutter));
 		}
 	}
 </style>

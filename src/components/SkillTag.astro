@@ -1,0 +1,69 @@
+---
+import type { Accent } from '../styles/tokens';
+
+interface Props {
+	label: string;
+	color: Accent;
+}
+
+const { label, color } = Astro.props;
+---
+
+<span class={`tag tag-${color}`} data-label={label} tabindex="0">{label}</span>
+
+<style>
+	.tag {
+		display: inline-flex;
+		flex-direction: column;
+		align-items: center;
+		padding: var(--space-2) var(--space-3);
+		border-radius: var(--radius-sm);
+		background: var(--color-bg);
+		box-shadow: var(--elevation-1);
+		white-space: nowrap;
+		cursor: default;
+		transition:
+			transform 0.15s ease,
+			background-color 0.15s ease,
+			color 0.15s ease;
+	}
+
+	.tag::after {
+		content: attr(data-label);
+		height: 0;
+		overflow: hidden;
+		visibility: hidden;
+		font-weight: var(--font-weight-bold);
+	}
+
+	.tag:hover,
+	.tag:focus-visible {
+		color: var(--color-text-inverse);
+		font-weight: var(--font-weight-bold);
+		outline: none;
+	}
+
+	.tag-blue:hover,
+	.tag-blue:focus-visible {
+		background: var(--color-accent-blue);
+		transform: rotate(-3deg);
+	}
+
+	.tag-red:hover,
+	.tag-red:focus-visible {
+		background: var(--color-accent-red);
+		transform: rotate(3deg);
+	}
+
+	.tag-lime:hover,
+	.tag-lime:focus-visible {
+		background: var(--color-accent-lime);
+		transform: rotate(4deg);
+	}
+
+	.tag-purple:hover,
+	.tag-purple:focus-visible {
+		background: var(--color-accent-purple);
+		transform: rotate(-4deg);
+	}
+</style>

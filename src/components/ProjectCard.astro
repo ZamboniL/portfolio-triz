@@ -34,21 +34,21 @@ const cropVars = image && {
 		display: block;
 		width: 310px;
 		height: 393px;
-		padding: 26px 9px 37px;
+		padding: var(--space-6) var(--space-2) var(--space-9);
 	}
 
 	.card-body {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 14px;
+		gap: var(--space-4);
 		transition: transform 0.2s ease;
 	}
 
 	/* Hover = Figma "Variant2": image and caption lift 12px. */
 	.card:hover .card-body,
 	.card:focus-visible .card-body {
-		transform: translateY(-12px);
+		transform: translateY(calc(-1 * var(--space-3)));
 	}
 
 	.thumb {
@@ -56,10 +56,10 @@ const cropVars = image && {
 		display: block;
 		width: 292px;
 		height: 292px;
-		border-radius: 20px;
+		border-radius: var(--radius-lg);
 		overflow: hidden;
-		background: var(--color-grey);
-		box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+		background: var(--color-placeholder);
+		box-shadow: var(--elevation-1);
 	}
 
 	.thumb img {
@@ -86,7 +86,7 @@ const cropVars = image && {
 		}
 
 		.card-body {
-			gap: 20px;
+			gap: var(--space-5);
 		}
 
 		.thumb {
@@ -103,7 +103,7 @@ const cropVars = image && {
 		}
 
 		.caption {
-			font-size: 16px;
+			font-size: var(--font-size-md);
 		}
 	}
 </style>

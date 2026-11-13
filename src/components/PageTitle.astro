@@ -1,0 +1,24 @@
+---
+import { accentColor, type Accent } from '../styles/tokens';
+
+interface Props {
+	color?: Accent;
+}
+
+const { color = 'blue' } = Astro.props;
+---
+
+<h1 class="page-title" style={{ '--title-color': accentColor(color) }}>
+	<slot />
+</h1>
+
+<style>
+	.page-title {
+		margin: var(--layout-page-top) 0 0;
+		color: var(--title-color);
+		font-size: var(--font-size-title);
+		font-weight: var(--font-weight-bold);
+		font-style: italic;
+		text-align: center;
+	}
+</style>

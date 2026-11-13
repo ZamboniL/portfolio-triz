@@ -51,7 +51,7 @@ const links = [
 
 <style>
 	.site-header {
-		background: var(--color-white);
+		background: var(--color-surface);
 		height: 148px;
 	}
 
@@ -61,7 +61,7 @@ const links = [
 		width: var(--container-width);
 		max-width: 100%;
 		margin: 0 auto;
-		padding-top: 35px;
+		padding-top: var(--space-9);
 	}
 
 	.brand {
@@ -69,7 +69,7 @@ const links = [
 		flex: none;
 		width: 162px;
 		height: 83px;
-		margin-left: 9px;
+		margin-left: var(--space-2);
 	}
 
 	.brand-name {
@@ -78,7 +78,7 @@ const links = [
 		left: 0;
 		display: flex;
 		flex-direction: column;
-		font-size: 30px;
+		font-size: var(--font-size-title);
 		white-space: nowrap;
 	}
 
@@ -93,7 +93,7 @@ const links = [
 
 	.nav {
 		display: flex;
-		margin: 35px 0 0 289px;
+		margin: var(--space-9) 0 0 calc(var(--space-1) * 72);
 	}
 
 	.nav-link {
@@ -143,7 +143,7 @@ const links = [
 	.nav-link:hover,
 	.nav-link:focus-visible,
 	.nav-link.is-active {
-		font-weight: 700;
+		font-weight: var(--font-weight-bold);
 	}
 
 	.nav-link:hover .nav-icon,
@@ -160,7 +160,7 @@ const links = [
 
 		.inner {
 			width: auto;
-			padding: 10px 24px 0 23px;
+			padding: var(--space-2) var(--space-6) 0;
 		}
 
 		.brand {
@@ -170,8 +170,7 @@ const links = [
 		}
 
 		.brand-name {
-			font-size: 16px;
-			line-height: 16px;
+			line-height: var(--line-height-tight);
 		}
 
 		.brand-mark {
@@ -182,8 +181,8 @@ const links = [
 		}
 
 		.nav {
-			gap: 6px;
-			margin: 8px 0 0 auto;
+			gap: var(--space-2);
+			margin: var(--space-2) 0 0 auto;
 		}
 
 		.nav-link,
@@ -191,8 +190,8 @@ const links = [
 		.nav-link-projects {
 			width: auto;
 			height: auto;
-			padding: 10px;
-			font-size: 14px;
+			padding: var(--space-2);
+			font-size: var(--font-size-sm);
 			color: var(--color-text-strong);
 		}
 
@@ -203,19 +202,19 @@ const links = [
 		.nav-link:hover,
 		.nav-link:focus-visible,
 		.nav-link.is-active {
-			font-weight: 400;
+			font-weight: var(--font-weight-regular);
 		}
 
 		.nav-link-home:is(:hover, :focus-visible, .is-active) {
-			color: var(--color-star);
+			color: var(--color-accent-red);
 		}
 
 		.nav-link-projects:is(:hover, :focus-visible, .is-active) {
-			color: var(--color-lime);
+			color: var(--color-accent-lime);
 		}
 
 		.nav-link-about:is(:hover, :focus-visible, .is-active) {
-			color: var(--color-accent);
+			color: var(--color-accent-blue);
 		}
 	}
 </style>
